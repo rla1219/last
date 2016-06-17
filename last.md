@@ -10,7 +10,7 @@
 사용자가 정한 분류 기준에 따라 앱 아이콘에 대한 그룹을 결정하고 결정된 그룹에 따라 앱 아이콘이 표시되도록 제어함으로써 사용자의 입력 없이도 장치 화면에 표시되는 앱 아이콘을 효율적으로 관리하고 그에 따라 사용자의 편의성을 높일 수 있다. 최근 사용빈도수가 낮은 앱은 삭제를 권유하는 메시지를 보낼 수 있다.
 
 **5WHYS**
-    
+----------    
 
    번호  | 문제 | 답  |
 -------- | ---- | --- |
@@ -40,9 +40,9 @@
 
 **유사한 문제를 해결한 기존의 방법**
 ------------------------------------
-자주 사용하는 앱은 화면의 가장 위의 줄에 위치한다.
-기능별로 유사한 앱들을 한 파일에 묶어놓는다.
-앱 아이콘을 길게 터치하면 편집기능이 있어 간편하게 편집할 수 있다.
+ * 자주 사용하는 앱은 화면의 가장 위의 줄에 위치한다. 
+ * 기능별로 유사한 앱들을 한 파일에 묶어놓는다.
+ * 앱 아이콘을 길게 터치하면 편집기능이 있어 간편하게 편집할 수 있다.
 
 **기존 방법에 비해 아이디어의 차별성 및 장점**
 -------------------------------------------------
@@ -82,13 +82,17 @@
 > - 위 3개의 그림을 보듯이, 페이스북, 앱다이어트 중에 실행한 빈도 수가 높으므로 가장 윗 줄에 앱이 배정되어진다. 그리고 V3 Mobile, 태그, 일정 등등 1개월 동안 사용되지 않는 앱은 사용자는 삭제 권유를 받는다. 하지만 Flash Player Settings과 같이 문서 앱은 자주 사용되어지지 않아도 삭제하면 안되므로 사용자 정의에 따라 삭제권유를 하지 않게 만들 수도 있다. 
 아이콘을 길게 누르면 아이콘의 고정 기능, 이동 기능, 삭제 기능, 삭제 권유 불가 기능, 숨기기 기능, 그룹 만들기 기능 등을 선택하여 여러 가지 기능을 사용할 수 있다. 또한 아이콘을 자유롭게 회전, 크기조정을 하여 사용자의 편의에 따라 설정할 수 있다.
 
-시스템 설계 ······································ 03 1) 시스템 목적 2) 시스템 구조 3) 시스템 기능 4) 시스템 구성 요소 및 기능, 입출력데이터 5) 시스템 동작흐름 
-시스템 목적 : 스마트폰 사용자가 원하는 대로 어플리케이션을 운용하여 편리성을 향상하는 것에 목적을 두고 있다.
+> 시스템 설계  
+> - 시스템 목적 : 스마트폰 사용자가 원하는 대로 어플리케이션을 운용하여 편리성을 향상하는 것에 목적을 두고 있다.
+> - 시스템 구조 
+> - 시스템 기능 
+> - 시스템 구성 요소 및 기능, 입출력데이터 
+> - 시스템 동작흐름 
 
 ![mobile4](http://blogfiles.naver.net/20160617_103/chanki1007_1466125885754XAv8s_PNG/6.PNG)
 
-시스템기능
-
+시스템 기능
+-----------
 
       문제 |
  ---|
@@ -98,7 +102,8 @@
   4. 어플리케이션 표시를 정해진 틀에 벗어나 사용자가 지정한 위치에 설정할 수 있다. | 
   
 
-1번 기능 모듈 
+#### 1번 기능 모듈 
+
 어플리케이션을 다운받으면 자동으로 분류가 되고 그룹에 속해지거나 또는 그룹 생성된다.
 
 ![module1](http://postfiles5.naver.net/20160617_276/chanki1007_14661274883552fFER_PNG/manage.PNG?type=w3) 
@@ -143,15 +148,63 @@
 입력 데이터 : 그룹 데이터 |
 관리 제어소 기능 : 각각 어플리케이션을 지속적으로 관리 및 다른 제어소에서 필요시에 그룹에 대한 데이터를 출력해준다.|
 
+```C++
+struct save(string down) {
+  string name[100];
+  double size;
+  int fre;
+  string date[8];
+  int datanum;
+  datanum[50] = group(appinfor);
+  string del;
+  int userfreq;
+};
 
-![code1](http://postfiles13.naver.net/20160617_236/chanki1007_1466128276835VEwSD_PNG/code1.PNG?type=w3)
+//처음 앱 다운시 저장소에 저장
 
-![code2](http://postfiles8.naver.net/20160617_151/chanki1007_1466128277097RRLUx_PNG/code2.PNG?type=w3)
+void save(string down){
+  struct save num[100];
+  static int i = 0;
+  
+  num[i].name = down.name;
+  num[i].date[8] = down.name;
+  i++;
+}
 
-![code3](http://postfiles3.naver.net/20160617_146/chanki1007_1466128524464eask1_PNG/cd3.PNG?type=w3)
+// 어플리케이션 사용시 사용빈도 증가
 
+int fre(int& fre){
+  fre++;
+}
 
-2번 기능모듈
+//기능을 데이터화
+
+int group(string appinfor){
+  string appinfor;
+  if(strcmp(appinfor,사진) == 0 ) {
+    int i = 1 ;  }
+  if(strcmp(appinfor,동영상) == 0 ) {
+    int i = 2 ;  }
+  if(strcmp(appinfor,금융) == 0 ) {
+    int i = 3 ;  }
+  return i;
+}
+
+//같은 그룹에 넣을지 말지 정하는 함수
+
+void icon(int exist_group, int datanum) {
+  if(exist_group_datanum == datanum)  {  // 데이터가 그룹데이터와 같다면 
+    if(question()) { equalprint(); } // 같은 그룹에 속할지 안할지 물어본다.
+  }
+}
+
+void print(icon_print) {
+  print_screen_icon();
+}
+```
+
+#### 2번 기능모듈
+
 빈도수가 낮은 어플리케이션은 사용자에게 삭제 권유를 하게 한다. 승낙 시 삭제를 실행한다.
 
 ![module2](http://postfiles3.naver.net/20160617_66/chanki1007_1466129203147VH4Ks_PNG/m1.PNG?type=w3)
@@ -179,14 +232,51 @@
 입력 데이터 : true 또는 false |
 삭제 제어소 기능 : 입력 데이터가 true이면 사용자에게 삭제권유를 한다. 만약 사용자가 승낙할 시 어플리케이션을 삭제한다. |
 
+```C++
+int saveData() { // 사용자가 빈도수를 설정
+  int userFrequency;
+  cin >> userFrequency;
+  
+  return userFrequency;
+}
 
-![code4](http://postfiles7.naver.net/20160617_246/chanki1007_14661291184989LWCX_PNG/co2.PNG?type=w3)
+int manage() { // 앱이 실행되면 앱의 사용횟수 증가
+  int appFrequency;
+  bool apptouch;
+  
+  if(apptouch == 1) {
+    appFrequency++;
+  }
+  
+  return appFrequency;
+}
+void main() {
+  bool appaDelete;
+  char decision;
+  int userFrequency;
+  int appFrequency;
+  
+  userFrequency = saveData();
+  appFrequency = manage();
+  if(userFrequency > appFrequency) { // 앱의 사용횟수가 사용자가 설정한 빈도수보다 작으면 삭제 권유
+    cout << "사용빈도수가 낮습니다. 삭제하시겠습니까? (Y/N)\n";
+    cin >> decision;
+  
+    if(decision = 'y' || 'Y' ) { // 사용자가 삭제를 원할시 삭제
+      appDelete = true;
+    }
+    else if(decision = 'n' || 'N' ) { // 원하지 않으면 보류
+      appDelete =false;
+    }
+  }
+  else if(userFrequency <= appFrequency) {
+    appDelete = false;
+  }
+}
+```
 
-![code4](http://postfiles9.naver.net/20160617_40/chanki1007_1466129118920ac8g1_PNG/co3.PNG?type=w3)
+#### 3번 기능모듈
 
-
-
-3번 기능모듈
 빈도수 기준에 따라 자동으로 어플리케이션이 분류된다.
 
 ![module](http://postfiles9.naver.net/20160617_8/chanki1007_1466129867830PK65c_PNG/module3.PNG?type=w3)
@@ -232,12 +322,37 @@
 입력 데이터 : 새롭게 생성된 그룹 데이터 |
 표시 제어소 기능 : 입력받은 그룹 데이터를 분석하여 어떤 어플리케이션이 이 그룹에 속했는지 알아보고 시각적으로 보여준다. |
 
+```C++
+// 지속적으로 사용빈도 측정
+void fre() {
+  for(int i = 1 ; i > apllappnum ; i++) {
+  if(today - num[i].date == usersetting) {
+    if(freg() >= userfreg()) {
+      num[i].del = false;
+      }
+    }
+  }
+}
+void rank_fre() {
+//정보 저장소에서 가져온 값 사용 빈도대로 순서를 나열
+  for(int i = 1; i>allappnum; i++) {
+    calling(i);
+    fre = new int [allnum];
+    rank();
+   }
+ }
+ void groupp() { // 유저세팅이 있을 경우 랭크그룹에 순위권으로 넣어둔다.
+   usersetting() -> rankgroup() ;
+}
 
-![m3c1](http://postfiles6.naver.net/20160617_5/chanki1007_14661298670807qXeK_PNG/m3c1.PNG?type=w3)
+//랭크그룹을 토대로 화면에 표시
+void printf() {
+  rankgroup -> print() ;
+}
+```
 
-![m3c2](http://postfiles6.naver.net/20160617_245/chanki1007_146612986747672j3N_PNG/m3c2.PNG?type=w3)
+#### 4번 기능모듈
 
-4번 기능모듈
 어플리케이션 표시를 정해진 틀에 벗어나 사용자가 지정한 위치에 설정할 수 있다.
 
 ![module4](http://postfiles10.naver.net/20160617_25/chanki1007_1466129868044s18oP_PNG/module4.PNG?type=w3)
@@ -257,8 +372,14 @@
 입력 데이터 : 사용자가 지정한 위치( x , y ) 데이터 |
 표시 제어소 기능 : 지정한 위치에 어플리케이션이 옮겨지고 시각적으로 보이게 한다. |
 
-![m4c1](http://postfiles12.naver.net/20160617_203/chanki1007_14661298676477bvIy_PNG/m4c1.PNG?type=w3)
-
+```C++
+int coordinate() {
+  double x, y;
+  
+  cin >> x >> y; // 사용자가 지정하는 위치입력
+  cout << icon_image; // 그 위치에 아이콘을 표시
+}
+```
 
 **과제 수행 내용에 대한 각자 의견 및 소감**
 
